@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="stylesheet" href="style.css">
+    <title>Dominó</title>
+    
+
+</head>
+<body>
+
+    <div class="area-jogador-topo">
+        <h3>Jogador 2 (Oponente)</h3>
+        <div class="mao-pecas" id="mao-jogador2"></div>
+    </div>
+
+<div id="area-mesa" style="position: relative;">
+    <div id="cabecalho-mesa">
+        <h3>Mesa do Jogo</h3>
+        <div id="placar">🏆 J1: <span id="vitorias-j1">0</span> | J2: <span id="vitorias-j2">0</span></div>
+    </div>
+    
+    <div id="tabuleiro"></div>
+    
+    <div id="seletor-lados-mesa">
+        <div id="zona-esquerda" class="zona-clique"><span>⬅️ Jogar na Esquerda</span></div>
+        <div id="zona-direita" class="zona-clique"><span>Jogar na Direita ➡️</span></div>
+    </div>
+
+    <div id="controles-jogo">
+        <button id="btn-comprar" class="btn-acao">Comprar Peça</button>
+        <button id="btn-passar" class="btn-acao" disabled>Passar Vez</button>
+        <button id="btn-reiniciar" class="btn-acao" style="display: none; background-color: #2196f3;">Jogar Próxima Partida</button>
+    </div>
+</div>
+    <div class="area-jogador-base">
+        <h3>Jogador 1 (Você)</h3>
+        <div class="mao-pecas" id="mao-jogador1"></div>
+    </div>
+
+<script src="script.js"></script>
+
+</body>
