@@ -588,6 +588,13 @@ function lidarComCliqueDaPeca(idPeca) {
 
     // Mostra as duas metades na mesa verde
     document.getElementById("seletor-lados-mesa").style.display = "block";
+    
+    // 🆕 CORREÇÃO 1: Faz o botão "Cancelar Seleção" aparecer na tela!
+    const btnCancelar = document.getElementById("btn-cancelar");
+    if (btnCancelar) {
+        btnCancelar.style.display = "inline-block";
+    }
+
     console.log(`💡 Escolha visual ativada para a peça [${pecaSelecionada.ladoA}|${pecaSelecionada.ladoB}]`);
 }
 
@@ -607,6 +614,12 @@ function processarEscolhaDeLadoVisual(ladoEscolhido) {
         // Esconde as metades da tela novamente
         document.getElementById("seletor-lados-mesa").style.display = "none";
         
+        // 🆕 CORREÇÃO 2: Esconde o botão de cancelar já que a jogada foi concluída!
+        const btnCancelar = document.getElementById("btn-cancelar");
+        if (btnCancelar) {
+            btnCancelar.style.display = "none";
+        }
+        
         // Limpa as variáveis de controle
         pecaAguardandoLado = null;
         indicePecaAguardando = -1;
@@ -618,12 +631,24 @@ function processarEscolhaDeLadoVisual(ladoEscolhido) {
     } else {
         // Se a jogada for inválida naquela ponta, avisa mas deixa as metades abertas 
         // para o usuário tentar clicar na outra ponta ou desistir!
-        alert("Esta peça não encaixa deste lado da mesa! Tente o outro lado ou clique em outra peça.");
+        alert("Esta peça não encaixa deste lado da mesa! Tente o outro lado ou clique em outra peça (ou cancele a seleção).");
     }
-    
 }
 
-
+// 🆕 CORREÇÃO 3: Nova função específica para limpar o estado caso o botão vermelho seja clicado
+function cancelarSelecaoPeca() {
+    // 1. Oculta a área de seleção verde
+    document.getElementById("seletor-lados-mesa").style.display = "none";
+    
+    // 2. Oculta o próprio botão vermelho
+    document.getElementById("btn-cancelar").style.display = "none";
+    
+    // 3. Reseta os estados de controle do jogo
+    pecaAguardandoLado = null;
+    indicePecaAguardando = -1;
+    
+    console.log("❌ Seleção de peça cancelada. Tabuleiro liberado para arrastar.");
+}
 
 // Configura os cliques nas metades da mesa
 document.getElementById("zona-esquerda").addEventListener("click", () => processarEscolhaDeLadoVisual("esquerda"));
@@ -632,6 +657,9 @@ document.getElementById("zona-direita").addEventListener("click", () => processa
 // Configura os cliques dos botões de controle
 document.getElementById("btn-comprar").addEventListener("click", jogadorComprarPeca);
 document.getElementById("btn-passar").addEventListener("click", jogadorPassarVez);
+
+// 🆕 CORREÇÃO 4: Vincula o botão HTML à nova função de cancelamento
+document.getElementById("btn-cancelar").addEventListener("click", cancelarSelecaoPeca);
 
 // Altere a sua inicialização para atualizar o estado dos botões logo no início:
 renderizarMao(maoJogador1, "mao-jogador1");
