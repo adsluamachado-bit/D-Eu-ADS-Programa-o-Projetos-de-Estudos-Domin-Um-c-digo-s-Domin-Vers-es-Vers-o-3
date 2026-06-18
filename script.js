@@ -620,7 +620,9 @@ function processarEscolhaDeLadoVisual(ladoEscolhido) {
         // para o usuário tentar clicar na outra ponta ou desistir!
         alert("Esta peça não encaixa deste lado da mesa! Tente o outro lado ou clique em outra peça.");
     }
+    
 }
+
 
 
 // Configura os cliques nas metades da mesa
