@@ -1,97 +1,65 @@
-    /* 🎨 VARIÁVEIS GLOBAIS: Preparadas para facilitar futuras Media Queries */
-    /* 📱 REGRAS EXCLUSIVAS PARA MOBILE (Android / iOS) */
-@media (max-width: 768px) {
-    :root {
-        --altura-topo-base: 40px;  /* 📉 Encolhe drasticamente a barra do Jogador 2 */
-        --altura-peca: 55px;       /* 📉 Reduz ligeiramente o tamanho das peças no celular */
-        --largura-peca: 33px;
-        --fonte-peca: 18px;
-        --tamanho-fonte-titulos: 14px;
-    }
-    
-    /* 📉 Força a mesa verde a não roubar todo o espaço no Mobile */
-    #area-mesa {
-        max-height: 50vh; /* Ocupa no máximo metade da altura da tela do celular */
-    }
-
-    .mao-pecas {
-        min-height: 75px;
-        padding: 4px 8px;
-        max-width: 95vw;
-    }
-    
-    #controles-jogo {
-        margin-top: 5px;
-        margin-bottom: 5px; /* Deixa colado na área do jogador 1 */
-    }
-
-    /* Estilo do novo botão de Cancelar Seleção */
-    .btn-cancelar {
-        background-color: #d32f2f !important; /* Vermelho de alerta */
-        color: white;
-    }
+/* ==========================================================================
+   1. ESTILOS PADRÕES (DESKTOP / BASE GERAL DO JOGO)
+   ========================================================================== */
+:root {
+    --altura-topo-base: 60px;       /* Controla a altura das barras azul/vermelha */
+    --tamanho-fonte-titulos: 16px;   /* Tamanho do texto "Jogador 1" e "Jogador 2" */
+    --altura-peca: 75px;
+    --largura-peca: 45px;
+    --fonte-peca: 26px;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    height: 100vh; /* Ocupa exatamente o tamanho visível da tela */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Impede barras de rolagem indesejadas no navegador */
+}
 
-    :root {
-        --altura-topo-base: 60px;       /* 🆕 Controla diretamente a altura das barras azul/vermelha */
-        --tamanho-fonte-titulos: 16px;   /* 🆕 Tamanho do texto "Jogador 1" e "Jogador 2" */
-        --altura-peca: 75px;
-        --largura-peca: 45px;
-        --fonte-peca: 26px;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        height: 100vh; /* Ocupa exatamente o tamanho visível da tela */
-        display: flex;
-        flex-direction: column;
-        overflow: hidden; /* 🛡️ Impede barras de rolagem indesejadas no navegador */
-    }
-
-    #tabuleiro:active {
+#tabuleiro:active {
     cursor: grabbing; /* Mãozinha fechada ao arrastar */
-    }
+}
 
-    #tabuleiro::-webkit-scrollbar, .mao-pecas::-webkit-scrollbar {
+#tabuleiro::-webkit-scrollbar, .mao-pecas::-webkit-scrollbar {
     display: none;
-    }
+}
 
-    /* 🟦 Metade de cima: Jogador 2 (Azul) */
-    .area-jogador-topo {
-        background-color: #1e3a8a;
-        min-height: var(--altura-topo-base); /* Usa a variável flexível */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: var(--tamanho-fonte-titulos);
-        font-weight: bold;
-    }
+/* 🟦 Metade de cima: Jogador 2 (Azul) */
+.area-jogador-topo {
+    background-color: #1e3a8a;
+    min-height: var(--altura-topo-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: var(--tamanho-fonte-titulos);
+    font-weight: bold;
+}
 
-    /* 🟥 Metade de baixo: Jogador 1 (Vermelho) */
-    .area-jogador-base {
-        background-color: #7f1d1d;
-        min-height: var(--altura-topo-base); /* Usa a mesma variável flexível */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: var(--tamanho-fonte-titulos);
-        font-weight: bold;
-    }
+/* 🟥 Metade de baixo: Jogador 1 (Vermelho) */
+.area-jogador-base {
+    background-color: #7f1d1d;
+    min-height: var(--altura-topo-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: var(--tamanho-fonte-titulos);
+    font-weight: bold;
+}
 
-   /* 🟩 O Tabuleiro Central (Mesa) */
-    #area-mesa {
+/* 🟩 O Tabuleiro Central (Mesa) */
+#area-mesa {
     background-color: #1b5e20;
     flex-grow: 1;
     display: flex; 
     flex-direction: column;
-    justify-content: space-between; /* 🆕 Mudado para empurrar os botões para a base da mesa */
+    justify-content: space-between; /* Empurra os botões para a base da mesa */
     align-items: center;
     color: white;
     border-top: 0.2rem solid #111827;
@@ -99,10 +67,10 @@
     position: relative;
     padding-top: 10px;
     padding-bottom: 10px;
-    }
+}
 
-    /* ⬜ As mãos dos jogadores (Fundo Branco) */
-   .mao-pecas {
+/* ⬜ As mãos dos jogadores (Fundo Branco) */
+.mao-pecas {
     background-color: #ffffff;
     border-radius: 10px;
     min-height: calc(var(--altura-peca) + 15px);
@@ -114,156 +82,199 @@
     margin-top: 5px;
     margin-bottom: 5px;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-    /* 🆕 Permite arrastar e rolar na mão também se houver muitas peças compradas */
     overflow-x: auto;
     max-width: 90vw;
     cursor: grab;
-    }
+}
 
-    #tabuleiro {
+#tabuleiro {
     display: flex;
     gap: 10px;
     padding: 15px;
     min-height: var(--altura-peca);
     align-items: center;
-    /* 🆕 SUPER RESPONSIVIDADE: Permite rolagem horizontal se houver muitas peças */
     overflow-x: auto; 
     max-width: 95vw;
     white-space: nowrap;
-    cursor: grab; /* Mostra a mãozinha de arrastar */
+    cursor: grab;
     scroll-behavior: smooth;
+}
+
+/* 🀫 As Peças Pretas */
+.peca-domino {
+    background-color: #1a1a1a;
+    border: 2px solid #333;
+    border-radius: 6px;
+    display: flex;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.peca-domino:hover {
+    transform: translateY(-8px);
+}
+
+/* Lados da peça */
+.metade-peca {
+    width: var(--largura-peca);
+    height: var(--altura-peca);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fonte-peca);
+    font-weight: bold;
+}
+
+.metade-peca:first-child {
+    border-right: 2px solid #444;
+}
+
+#controles-jogo {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-acao {
+    background-color: #f57f17;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-acao:hover:not(:disabled) {
+    background-color: #f9a825;
+    transform: scale(1.05);
+}
+
+.btn-acao:disabled {
+    background-color: #9e9e9e;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Estilo Base do Botão de Cancelar (Fica invisível no início) */
+.btn-cancelar {
+    background-color: #d32f2f !important;
+    color: white !important;
+    display: none; /* Controlado via JS com a classe auxiliar */
+}
+
+/* 🆕 Classe utilitária que o JS aciona para forçar a visibilidade */
+.mostrar-botao {
+    display: inline-block !important;
+}
+
+#seletor-lados-mesa {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 90px);
+    z-index: 10;
+}
+
+.zona-clique {
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.2s;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+#zona-esquerda:hover {
+    background-color: rgba(33, 150, 243, 0.3);
+}
+
+#zona-direita:hover {
+    background-color: rgba(76, 175, 80, 0.3);
+}
+
+.zona-clique span {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 16px;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+#cabecalho-mesa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 5px;
+}
+
+#placar {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #f57f17;
+}
+
+.peca-domino.peca-oculta {
+    background: linear-gradient(135deg, #2c3e50, #1a252f) !important;
+    border: 2px solid #34495e !important;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5) !important;
+    cursor: not-allowed;
+}
+
+.bloco-oculto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+}
+
+/* ==========================================================================
+   2. REGRAS EXCLUSIVAS PARA MOBILE (SEMPRE NO FINAL DO ARQUIVO)
+   ========================================================================== */
+@media (max-width: 768px) {
+    :root {
+        --altura-topo-base: 40px;  /* Agora sim sobrescreve os 60px no celular */
+        --altura-peca: 55px;       /* Agora sim sobrescreve os 75px no celular */
+        --largura-peca: 33px;
+        --fonte-peca: 18px;
+        --tamanho-fonte-titulos: 14px;
+    }
+    
+    #area-mesa {
+        max-height: 50vh; /* Limita a área verde para salvar o espaço do J1 */
     }
 
-    /* 🀫 As Peças Pretas */
-    .peca-domino {
-        background-color: #1a1a1a;
-        border: 2px solid #333;
-        border-radius: 6px;
-        display: flex;
-        box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-        cursor: pointer;
-        transition: transform 0.2s;
+    .mao-pecas {
+        min-height: 75px;
+        padding: 4px 8px;
+        max-width: 95vw;
     }
-
-    .peca-domino:hover {
-        transform: translateY(-8px);
-    }
-
-    /* Lados da peça */
-    .metade-peca {
-        width: var(--largura-peca);
-        height: var(--altura-peca);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: var(--fonte-peca);
-        font-weight: bold;
-    }
-
-    .metade-peca:first-child {
-        border-right: 2px solid #444;
-    }
-
+    
     #controles-jogo {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .btn-acao {
-        background-color: #f57f17;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        transition: background-color 0.2s, transform 0.1s;
-    }
-
-    .btn-acao:hover:not(:disabled) {
-        background-color: #f9a825;
-        transform: scale(1.05);
-    }
-
-    .btn-acao:disabled {
-        background-color: #9e9e9e;
-        cursor: not-allowed;
-        box-shadow: none;
-    }
-
-    #seletor-lados-mesa {
-        display: none;
-        position: absolute;
-        top: 40px;
-        left: 0;
-        width: 100%;
-        height: calc(100% - 90px);
-        z-index: 10;
-    }
-
-    .zona-clique {
-        width: 50%;
-        height: 100%;
-        float: left;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        transition: background-color 0.2s;
-        background-color: rgba(255, 255, 255, 0.08);
-    }
-
-    #zona-esquerda:hover {
-        background-color: rgba(33, 150, 243, 0.3);
-    }
-
-    #zona-direita:hover {
-        background-color: rgba(76, 175, 80, 0.3);
-    }
-
-    .zona-clique span {
-        background: rgba(0, 0, 0, 0.6);
-        padding: 8px 16px;
-        border-radius: 20px;
-        pointer-events: none;
-    }
-
-    #cabecalho-mesa {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
+        margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    #placar {
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 5px 15px;
-        border-radius: 15px;
-        font-size: 16px;
-        font-weight: bold;
-        border: 1px solid #f57f17;
+    .btn-cancelar {
+        min-width: 120px !important; /* Trava estrutural para telas Android */
+        z-index: 20 !important;
     }
-
-    .peca-domino.peca-oculta {
-        background: linear-gradient(135deg, #2c3e50, #1a252f) !important;
-        border: 2px solid #34495e !important;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.5) !important;
-        cursor: not-allowed;
-    }
-
-    .bloco-oculto {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        font-size: 20px;
-    }
+}
