@@ -3,22 +3,35 @@
 @media (max-width: 768px) {
     :root {
         --altura-topo-base: 40px;  /* 📉 Encolhe drasticamente a barra do Jogador 2 */
-        --altura-peca: 60px;       /* 📉 Reduz ligeiramente o tamanho das peças no celular */
-        --largura-peca: 36px;
-        --fonte-peca: 20px;
+        --altura-peca: 55px;       /* 📉 Reduz ligeiramente o tamanho das peças no celular */
+        --largura-peca: 33px;
+        --fonte-peca: 18px;
         --tamanho-fonte-titulos: 14px;
     }
     
+    /* 📉 Força a mesa verde a não roubar todo o espaço no Mobile */
+    #area-mesa {
+        max-height: 50vh; /* Ocupa no máximo metade da altura da tela do celular */
+    }
+
     .mao-pecas {
-        min-height: 80px;
-        padding: 4px 10px;
+        min-height: 75px;
+        padding: 4px 8px;
+        max-width: 95vw;
     }
     
     #controles-jogo {
         margin-top: 5px;
         margin-bottom: 5px; /* Deixa colado na área do jogador 1 */
     }
+
+    /* Estilo do novo botão de Cancelar Seleção */
+    .btn-cancelar {
+        background-color: #d32f2f !important; /* Vermelho de alerta */
+        color: white;
+    }
 }
+
 
     :root {
         --altura-topo-base: 60px;       /* 🆕 Controla diretamente a altura das barras azul/vermelha */
@@ -73,7 +86,7 @@
     }
 
    /* 🟩 O Tabuleiro Central (Mesa) */
-#area-mesa {
+    #area-mesa {
     background-color: #1b5e20;
     flex-grow: 1;
     display: flex; 
