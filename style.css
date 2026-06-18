@@ -1,4 +1,25 @@
     /* 🎨 VARIÁVEIS GLOBAIS: Preparadas para facilitar futuras Media Queries */
+    /* 📱 REGRAS EXCLUSIVAS PARA MOBILE (Android / iOS) */
+@media (max-width: 768px) {
+    :root {
+        --altura-topo-base: 40px;  /* 📉 Encolhe drasticamente a barra do Jogador 2 */
+        --altura-peca: 60px;       /* 📉 Reduz ligeiramente o tamanho das peças no celular */
+        --largura-peca: 36px;
+        --fonte-peca: 20px;
+        --tamanho-fonte-titulos: 14px;
+    }
+    
+    .mao-pecas {
+        min-height: 80px;
+        padding: 4px 10px;
+    }
+    
+    #controles-jogo {
+        margin-top: 5px;
+        margin-bottom: 5px; /* Deixa colado na área do jogador 1 */
+    }
+}
+
     :root {
         --altura-topo-base: 60px;       /* 🆕 Controla diretamente a altura das barras azul/vermelha */
         --tamanho-fonte-titulos: 16px;   /* 🆕 Tamanho do texto "Jogador 1" e "Jogador 2" */
@@ -15,6 +36,14 @@
         display: flex;
         flex-direction: column;
         overflow: hidden; /* 🛡️ Impede barras de rolagem indesejadas no navegador */
+    }
+
+    #tabuleiro:active {
+    cursor: grabbing; /* Mãozinha fechada ao arrastar */
+    }
+
+    #tabuleiro::-webkit-scrollbar, .mao-pecas::-webkit-scrollbar {
+    display: none;
     }
 
     /* 🟦 Metade de cima: Jogador 2 (Azul) */
@@ -43,40 +72,53 @@
         font-weight: bold;
     }
 
-    /* 🟩 O Tabuleiro Central (Mesa) */
-    #area-mesa {
-        background-color: #1b5e20;
-        flex-grow: 1; /* Ocupa dinamicamente todo o espaço que sobrar da tela */
-        display: flex; 
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        border-top: 0.2rem solid #111827;
-        border-bottom: 0.2rem solid #111827;
-        position: relative; /* Mantém o seletor de lados ancorado no lugar certo */
+   /* 🟩 O Tabuleiro Central (Mesa) */
+#area-mesa {
+    background-color: #1b5e20;
+    flex-grow: 1;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; /* 🆕 Mudado para empurrar os botões para a base da mesa */
+    align-items: center;
+    color: white;
+    border-top: 0.2rem solid #111827;
+    border-bottom: 0.2rem solid #111827;
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
     }
 
     /* ⬜ As mãos dos jogadores (Fundo Branco) */
-    .mao-pecas {
-        background-color: #ffffff;
-        border-radius: 10px;
-        min-height: calc(var(--altura-peca) + 15px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-        padding: 6px var(--tamanho-fonte-titulos); /* Reduzido o padding vertical para economizar espaço */
-        margin-top: 5px;
-        margin-bottom: 5px;
-        box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+   .mao-pecas {
+    background-color: #ffffff;
+    border-radius: 10px;
+    min-height: calc(var(--altura-peca) + 15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 6px var(--tamanho-fonte-titulos);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    /* 🆕 Permite arrastar e rolar na mão também se houver muitas peças compradas */
+    overflow-x: auto;
+    max-width: 90vw;
+    cursor: grab;
     }
 
     #tabuleiro {
-        display: flex;
-        gap: 10px;
-        padding: 10px;
-        min-height: var(--altura-peca);
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    min-height: var(--altura-peca);
+    align-items: center;
+    /* 🆕 SUPER RESPONSIVIDADE: Permite rolagem horizontal se houver muitas peças */
+    overflow-x: auto; 
+    max-width: 95vw;
+    white-space: nowrap;
+    cursor: grab; /* Mostra a mãozinha de arrastar */
+    scroll-behavior: smooth;
     }
 
     /* 🀫 As Peças Pretas */
