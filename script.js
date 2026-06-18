@@ -204,6 +204,63 @@ function sortearJogadorInicial(deck) {
 
 
 
+// 🚀 FUNÇÃO PARA ATIVAR ARRASTO LATERAL VIA MOUSE OU TOQUE (Mesa e Mãos)
+function ativarArrastabilidade(seletorElemento) {
+    const elemento = document.getElementById(seletorElemento) || document.querySelector(seletorElemento);
+    if (!elemento) return;
+
+    let estaPrecionado = false;
+    let inicioX;
+    let rolagemEsquerda;
+
+    // --- EVENTOS PARA DESKTOP (MOUSE) ---
+    elemento.addEventListener('mousedown', (e) => {
+        estaPrecionado = true;
+        inicioX = e.pageX - elemento.offsetLeft;
+        rolagemEsquerda = elemento.scrollLeft;
+    });
+
+    elemento.addEventListener('mouseleave', () => {
+        estaPrecionado = false;
+    });
+
+    elemento.addEventListener('mouseup', () => {
+        estaPrecionado = false;
+    });
+
+    elemento.addEventListener('mousemove', (e) => {
+        if (!estaPrecionado) return;
+        e.preventDefault();
+        const x = e.pageX - elemento.offsetLeft;
+        const caminhado = (x - inicioX) * 1.5; // Multiplicador de velocidade do arrasto
+        elemento.scrollLeft = rolagemEsquerda - caminhado;
+    });
+
+    // --- EVENTOS PARA MOBILE (TOUCH / ANDROID) ---
+    elemento.addEventListener('touchstart', (e) => {
+        estaPrecionado = true;
+        inicioX = e.touches[0].pageX - elemento.offsetLeft;
+        rolagemEsquerda = elemento.scrollLeft;
+    }, { passive: true });
+
+    elemento.addEventListener('touchend', () => {
+        estaPrecionado = false;
+    });
+
+    elemento.addEventListener('touchmove', (e) => {
+        if (!estaPrecionado) return;
+        const x = e.touches[0].pageX - elemento.offsetLeft;
+        const caminhado = (x - inicioX) * 1.5;
+        elemento.scrollLeft = rolagemEsquerda - caminhado;
+    }, { passive: true });
+}
+
+// Ativa o recurso de arrastar na Mesa, na Mão do J1 e na Mão do J2
+setTimeout(() => {
+    ativarArrastabilidade('tabuleiro');
+    ativarArrastabilidade('mao-jogador1');
+    ativarArrastabilidade('mao-jogador2');
+}, 500);
 
 
 
@@ -802,3 +859,4 @@ function iniciarProximaPartida() {
 
 // Configura o clique para iniciar a próxima partida
 document.getElementById("btn-reiniciar").addEventListener("click", iniciarProximaPartida);
+
