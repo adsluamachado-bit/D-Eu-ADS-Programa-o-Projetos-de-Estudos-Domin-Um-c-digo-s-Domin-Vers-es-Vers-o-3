@@ -13,35 +13,63 @@
 <body>
 
     <div class="area-jogador-topo">
-        <h3>Jogador 2 (Oponente)</h3>
+        <div class="titulo-com-info">
+            <h3>Jogador 2 (Oponente)</h3>
+            <div class="info-container">
+                <button class="info-btn" aria-label="Informações do Oponente">i</button>
+                <div class="info-balao">
+                    <strong>Oponente (IA):</strong> Visualize as peças restantes do adversário. <br>
+                    <span id="info-qtd-j2">Peças restantes: 7</span>
+                </div>
+            </div>
+        </div>
         <div class="mao-pecas" id="mao-jogador2"></div>
     </div>
 
-<div id="area-mesa" style="position: relative;">
-    <div id="cabecalho-mesa">
-        <h3>Mesa do Jogo</h3>
-        <div id="placar">🏆 J1: <span id="vitorias-j1">0</span> | J2: <span id="vitorias-j2">0</span></div>
-    </div>
-    
-    <div id="tabuleiro"></div>
-    
-    <div id="seletor-lados-mesa">
-        <div id="zona-esquerda" class="zona-clique"><span>⬅️ Jogar na Esquerda</span></div>
-        <div id="zona-direita" class="zona-clique"><span>Jogar na Direita ➡️</span></div>
+    <div id="area-mesa">
+        <div id="cabecalho-mesa">
+            <div class="titulo-com-info" style="justify-content: center; margin-bottom: 5px;">
+                <h3>Mesa do Jogo</h3>
+                <div class="info-container" style="position: relative; right: auto; top: auto; transform: none;">
+                    <button class="info-btn" aria-label="Informações da Mesa">i</button>
+                    <div class="info-balao" id="balao-mesa">
+                        <strong>Mesa do Jogo:</strong> Onde o dominó acontece. Arraste para os lados para navegar pelas pontas da mesa caso o jogo fique extenso.
+                    </div>
+                </div>
+            </div>
+            <div id="placar">🏆 J1: <span id="vitorias-j1">0</span> | J2: <span id="vitorias-j2">0</span></div>
+            <div id="indicador-ponta-esquerda" class="indicador-ponta">Ponta: -</div>
+            <div id="indicador-ponta-direita" class="indicador-ponta">Ponta: -</div>
+        </div>
+        
+        <div id="tabuleiro"></div>
+        
+        <div id="seletor-lados-mesa">
+            <div id="zona-esquerda" class="zona-clique"><span>⬅️ Jogar na Esquerda</span></div>
+            <div id="zona-direita" class="zona-clique"><span>Jogar na Direita ➡️</span></div>
+        </div>
+
+        <div id="controles-jogo">
+            <button id="btn-comprar" class="btn-acao">Comprar Peça</button>
+            <button id="btn-passar" class="btn-acao" disabled>Passar Vez</button>
+            <button id="btn-reiniciar" class="btn-acao" style="display: none; background-color: #2196f3;">Jogar Próxima Partida</button>
+            <button id="btn-cancelar" class="btn-acao btn-cancelar" style="display: none;">Cancelar Seleção</button>
+        </div>
     </div>
 
-    <div id="controles-jogo">
-        <button id="btn-comprar" class="btn-acao">Comprar Peça</button>
-        <button id="btn-passar" class="btn-acao" disabled>Passar Vez</button>
-        <button id="btn-reiniciar" class="btn-acao" style="display: none; background-color: #2196f3;">Jogar Próxima Partida</button>
-        <button id="btn-cancelar" class="btn-acao btn-cancelar" style="display: none;">Cancelar Seleção</button>
-    </div>
-</div>
     <div class="area-jogador-base">
-        <h3>Jogador 1 (Você)</h3>
+        <div class="titulo-com-info">
+            <h3>Jogador 1 (Você)</h3>
+            <div class="info-container">
+                <button class="info-btn" aria-label="Minhas Informações">i</button>
+                <div class="info-balao">
+                    <strong>Sua Mão:</strong> Escolha uma peça válida para jogar. Se nenhuma encaixar, use os botões acima para comprar do monte ou passar seu turno.
+                </div>
+            </div>
+        </div>
         <div class="mao-pecas" id="mao-jogador1"></div>
     </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
