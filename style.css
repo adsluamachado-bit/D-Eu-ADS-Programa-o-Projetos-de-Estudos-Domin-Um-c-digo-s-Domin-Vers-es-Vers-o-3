@@ -40,6 +40,19 @@ body {
     font-weight: bold;
 }
 
+/* Faz especificamente o primeiro balão (do topo) abrir para baixo */
+.area-jogador-topo .info-balao {
+    bottom: auto;
+    top: 130%;
+}
+
+/* Inverte a setinha do balão do topo para apontar para cima */
+.area-jogador-topo .info-balao::after {
+    top: auto;
+    bottom: 100%;
+    border-color: transparent transparent #111827 transparent;
+}
+
 /* 🟥 Metade de baixo: Jogador 1 (Vermelho) */
 .area-jogador-base {
     background-color: #7f1d1d;
@@ -222,12 +235,18 @@ body {
 }
 
 #placar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;       /* 🔥 ISSO IMPEDE O PLACAR DE QUEBRAR EM DUAS LINHAS */
     background-color: rgba(0, 0, 0, 0.4);
-    padding: 5px 15px;
-    border-radius: 15px;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 20px;
     border: 1px solid #f57f17;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    margin: 5px auto;          /* Centraliza o placar horizontalmente */
 }
 
 .peca-domino.peca-oculta {
@@ -246,6 +265,118 @@ body {
     font-size: 20px;
 }
 
+/* ℹ️ ESTILOS PARA OS BALÕES DE ACESSIBILIDADE */
+
+/* ℹ️ NOVO ALINHAMENTO COMPATÍVEL COM OS TÍTULOS */
+.titulo-com-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o título e o ícone juntos */
+    gap: 8px;               /* Espaçamento perfeito entre o texto e o "i" */
+    position: relative;
+    width: 100%;
+}
+
+.titulo-com-info h3 {
+    margin: 0;             /* Remove margens que desalinhavam o topo */
+}
+
+/* Ajuste do contêiner para não quebrar o fluxo linear */
+.info-container {
+    position: relative;
+    display: inline-block;
+    z-index: 25;
+}
+
+.info-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.info-btn:hover, .info-btn:focus {
+    background: #f57f17;
+    border-color: #f57f17;
+}
+
+/* BALÃO DE DIÁLOGO ADAPTADO */
+.info-balao {
+    display: none;
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza o balão em relação ao ícone "i" */
+    background-color: #111827;
+    color: #f3f4f6;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-weight: normal;
+    text-align: left;
+}
+
+/* Seta centralizada apontando para o botão */
+.info-balao::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #111827 transparent transparent transparent;
+}
+
+/* Exibe o balão ao passar o mouse ou focar */
+.info-container:hover .info-balao, .info-container:focus-within .info-balao,
+.info-btn:focus + .info-balao {
+    display: block !important; /* ⚡ ATIVAÇÃO ROBUSTA DOS BALÕES (HOVER, FOCO OU CLIQUE) */
+}
+
+/* Ajuste específico para o balão da mesa não cortar na esquerda em mobile */
+#balao-mesa {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 📍 ESTILO DOS MARCADORES DE PONTAS */
+.indicador-ponta {
+    position: absolute;
+    top: 55px; /* Alinhado acima da linha das peças */
+    background-color: #ffca28;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    pointer-events: none; /* Não interfere nos cliques da mesa */
+    z-index: 5;
+}
+
+#indicador-ponta-esquerda {
+    left: 20px;
+}
+
+#indicador-ponta-direita {
+    right: 20px;
+}
+
 /* ==========================================================================
    2. REGRAS EXCLUSIVAS PARA MOBILE (SEMPRE NO FINAL DO ARQUIVO)
    ========================================================================== */
@@ -258,6 +389,11 @@ body {
         --tamanho-fonte-titulos: 14px;
     }
     
+    .info-balao {
+        width: 180px;
+        font-size: 12px;
+    }
+
     #area-mesa {
         max-height: 50vh; /* Limita a área verde para salvar o espaço do J1 */
     }
