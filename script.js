@@ -550,6 +550,8 @@ function renderizarMesa() {
         `;
         tabuleiro.appendChild(pecaDiv);
     });
+    // 🆕 GATILHO 1: Atualiza as pontas sempre que a mesa renderizar!
+    atualizarInformacoesDeQoL();
 }
 
 
@@ -665,8 +667,8 @@ document.getElementById("btn-cancelar").addEventListener("click", cancelarSeleca
 renderizarMao(maoJogador1, "mao-jogador1");
 renderizarMao(maoJogador2, "mao-jogador2");
 renderizarMesa();
-atualizarBotoesDeControle(); // 🆕 Adicione esta linha aqui!
-
+atualizarBotoesDeControle(); 
+atualizarInformacoesDeQoL(); // 🆕 GATILHO 2: Inicia os contadores limpos no carregamento!
 
 function finalizarTurnoJogador() {
     jogadorAtual = 2;
@@ -766,8 +768,8 @@ function executarTurnoComputador() {
     // 4. Se comprou e não serviu (ou banco vazio), ele passa a vez obrigatoriamente
     console.log("🚨 Computador NÃO tem jogadas e PASSOU A VEZ!");
     passarTurnoParaHumano();
-}
     }
+}
 
 // Função auxiliar para devolver o controle para você
 function passarTurnoParaHumano() {
@@ -775,9 +777,59 @@ function passarTurnoParaHumano() {
     jaComprouNesteTurno = false; // 🆕 Garante que começa falso no seu novo turno
     console.log("👉 É a sua vez, Jogador 1!");
     atualizarBotoesDeControle();
+    // 🆕 GATILHO 3: Atualiza o balão de quantidade de peças da IA!
+    atualizarInformacoesDeQoL(); 
 }
 
+// 🔄 FUNÇÃO DE QUALIDADE DE VIDA (QoL) E ACESSIBILIDADE
+function atualizarInformacoesDeQoL() {
+    // 1. Atualiza o balão de ajuda com a quantidade de peças do Computador (IA)
+    const txtQtdJ2 = document.getElementById("info-qtd-j2");
+    if (txtQtdJ2 && typeof maoJogador2 !== 'undefined') {
+        txtQtdJ2.textContent = `Peças restantes: ${maoJogador2.length}`;
+    }
 
+    // 2. Localiza os elementos das pontas na tela
+    const indicadorEsq = document.getElementById("indicador-ponta-esquerda");
+    const indicadorDir = document.getElementById("indicador-ponta-direita");
+
+    if (typeof mesa !== 'undefined' && mesa.length > 0) {
+        let valorEsquerda, valorDireita;
+
+        // Se houver apenas 1 peça na mesa, as duas pontas mostram os lados dessa peça
+        if (mesa.length === 1) {
+            valorEsquerda = mesa[0].ladoA;
+            valorDireita = mesa[0].ladoB;
+        } else {
+            // Em uma linha encadeada de dominó:
+            // A ponta da ESQUERDA expõe o lado que NÃO se conectou com a peça vizinha.
+            // Testamos se o ladoA da primeira peça é igual ao ladoA ou ladoB da segunda. 
+            // Se for igual, significa que o ladoB é a ponta aberta. Se não, ladoA é a ponta aberta.
+            const p0 = mesa[0];
+            const p1 = mesa[1];
+            valorEsquerda = (p0.ladoA === p1.ladoA || p0.ladoA === p1.ladoB) ? p0.ladoB : p0.ladoA;
+
+            // O mesmo vale para a última peça da DIREITA comparada com a penúltima
+            const pF = mesa[mesa.length - 1];
+            const pPenultima = mesa[mesa.length - 2];
+            valorDireita = (pF.ladoB === pPenultima.ladoA || pF.ladoB === pPenultima.ladoB) ? pF.ladoA : pF.ladoB;
+        }
+
+        // Atualiza os textos na tela
+        if (indicadorEsq) {
+            indicadorEsq.textContent = `Ponta: ${valorEsquerda}`;
+            indicadorEsq.style.display = "block";
+        }
+        if (indicadorDir) {
+            indicadorDir.textContent = `Ponta: ${valorDireita}`;
+            indicadorDir.style.display = "block";
+        }
+    } else {
+        // Se a mesa estiver completamente vazia, esconde os marcadores
+        if (indicadorEsq) indicadorEsq.style.display = "none";
+        if (indicadorDir) indicadorDir.style.display = "none";
+    }
+}
 
 
 
